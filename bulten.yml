@@ -1,0 +1,21 @@
+name: Sabah Spor Bulteni
+
+on:
+  schedule:
+    # UTC 06:00 = Türkiye Saati ile Sabah 09:00
+    - cron: '0 6 * * *'
+  workflow_dispatch: # İstediğiniz an butona basıp test edebilmeniz için
+
+jobs:
+  bulten-calistir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Python Kur
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Paketleri Yukle
+        run: pip install python-telegram-bot google-genai feedparser requests
+      - name: Botu Calistir
+        run: python bot.py
